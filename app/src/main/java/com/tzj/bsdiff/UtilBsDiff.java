@@ -9,10 +9,11 @@ public class UtilBsDiff {
     }
 
     /**
-     * 压缩
+     * 压缩（只能单个文件压缩）
+     * 压缩后的文件路径为原文件 + .bz2
      *
      * @param fileName 文件路径（不能为文件夹）
-     * @return 压缩后的文件路径
+     * @return 0 成功
      */
     public static native int zip(String fileName);
 
@@ -20,7 +21,7 @@ public class UtilBsDiff {
      * 解压
      *
      * @param fileName 文件路径（不能为文件夹）
-     * @return 解压后的文件路径
+     * @return 0 成功
      */
     public static native int unzip(String fileName);
 
