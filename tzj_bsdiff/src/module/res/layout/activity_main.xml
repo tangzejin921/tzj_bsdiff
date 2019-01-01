@@ -8,13 +8,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="zip"
-        android:text="zip"/>
+        android:onClick="bzip2"
+        android:text="bzip2"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="unZip"
-        android:text="unZip"/>
+        android:onClick="unBzip2"
+        android:text="unBzip2"/>
 
     <Button
         android:layout_width="match_parent"
@@ -26,5 +26,17 @@
         android:layout_height="wrap_content"
         android:onClick="patch"
         android:text="patch"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="zip"
+        android:text="zip"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="unZip"
+        android:text="unZip"/>
 
 </LinearLayout>

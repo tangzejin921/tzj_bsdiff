@@ -27,16 +27,16 @@ public class UtilBsDiff {
 
     /**
      * 差分文件
-     * @param oldFielName
-     * @param newFileName
-     * @return 生成差分文件的路径
+     * @param oldFielName 文件路径（不能为文件夹）
+     * @param newFileName 文件路径（不能为文件夹）
+     * @return 生成差分文件的路径(与旧文件同目录)
      */
     public static native String bsDiff(String oldFielName,String newFileName);
     /**
      * 合并文件
-     * @param oldFielName
-     * @param diffFileName
-     * @return 生成新文件的路径
+     * @param oldFielName 文件路径（不能为文件夹）
+     * @param diffFileName 文件路径（不能为文件夹）
+     * @return 生成新文件的路径(与旧文件同目录)
      */
     public static native String bsPatch(String oldFielName,String diffFileName);
 

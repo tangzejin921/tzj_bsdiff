@@ -63,7 +63,7 @@ Java_com_tzj_bsdiff_UtilBsDiff_bsDiff(JNIEnv *env, jclass type, jstring oldFielN
     char *diff = malloc(sizeof(char) * leng);
     diff[0] = '\0';
     strcat(diff, oldFielName);//放在了old 的目录
-    strcat(diff, "_");
+    strcat(diff, "-");
     strcat(diff, newName);
     strcat(diff, ".diff");
 

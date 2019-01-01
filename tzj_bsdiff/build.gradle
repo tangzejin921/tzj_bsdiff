@@ -1,0 +1,94 @@
+if (rootProject.getExtensions().findByName(getName()) == null) {
+    ext.set("moduleType", Type.isModule.name())
+} else {
+    ext.set("moduleType", rootProject.getExtensions().getByName(getName()))
+}
+
+enum Type {
+    isAPP,
+    isModule,
+    isFlutterPlugin;
+}
+
+if (moduleType == Type.isAPP.name()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+    if (moduleType == Type.isFlutterPlugin.name()) {
+        def localProperties = new Properties()
+        def localPropertiesFile = rootProject.file('local.properties')
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.withReader('UTF-8') { reader ->
+                localProperties.load(reader)
+            }
+        }
+        def flutterRoot = localProperties.getProperty('flutter.sdk')
+        if (flutterRoot != null) {
+            project.dependencies {
+                if (project.getConfigurations().findByName("compileOnly")) {
+                    compileOnly project.files("$flutterRoot/bin/cache/artifacts/engine/android-arm/flutter.jar")
+                } else {
+                    compile project.files("$flutterRoot/bin/cache/artifacts/engine/android-arm/flutter.jar")
+                }
+            }
+        }
+    }
+}
+android {
+    compileSdkVersion _compileSdkVersion
+    buildToolsVersion _buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion _minSdkVersion
+        targetSdkVersion _targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+        externalNativeBuild {
+            cmake {
+                cppFlags "-std=c++14"
+//                abiFilters 'armeabi','armeabi-v7a','arm64-v8a'
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            if (moduleType == Type.isAPP.name()) {
+                manifest.srcFile 'src/module/AndroidManifest.xml'
+                java.srcDirs = [
+                        'src/main/java',
+                        'src/module/java'
+                ]
+                res.srcDirs = [
+                        'src/main/res',
+                        'src/module/res'
+                ]
+                externalNativeBuild {
+                    cmake {
+                        path "CMakeLists.txt"
+                    }
+                }
+            } else if (moduleType == Type.isFlutterPlugin.name()) {
+                java.srcDirs = [
+                        'src/main/java',
+                        'src/flutter/java'
+                ]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+}
