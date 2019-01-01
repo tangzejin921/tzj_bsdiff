@@ -51,7 +51,7 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags "-std=c++14"
-//                abiFilters 'armeabi','armeabi-v7a','arm64-v8a'
+                abiFilters 'armeabi-v7a','x86'
             }
         }
     }
@@ -69,8 +69,12 @@ android {
                         'src/module/res'
                 ]
                 externalNativeBuild {
-                    cmake {
-                        path "CMakeLists.txt"
+                    File file = file('src/main/jniLibs')
+                    //todo 这里的判断可能会不准
+                    if (!file.exists() || file.list().size()<=0){
+                        cmake {
+                            path "CMakeLists.txt"
+                        }
                     }
                 }
             } else if (moduleType == Type.isFlutterPlugin.name()) {

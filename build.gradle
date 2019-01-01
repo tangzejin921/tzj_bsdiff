@@ -21,7 +21,7 @@ allprojects {
         jcenter()
     }
 }
-rootProject.extensions.add("tzj_bsdiff",Type.isFlutterPlugin.name())
+rootProject.extensions.add("tzj_bsdiff",Type.isModule.name())
 enum Type{
     isAPP,
     isModule,
